@@ -83,11 +83,9 @@ deactivate
 | Step | Method |
 |---|---|
 | Grayscale conversion | OpenCV color space conversion |
-| Noise reduction | Gaussian blur |
-| Contrast enhancement | CLAHE |
-| Binarisation | Adaptive Gaussian thresholding |
-| Gap filling | Morphological closing |
-| Salt-and-pepper removal | Median blur |
+| 3x upscale | `cv2.resize` with cubic interpolation |
+| Binarisation | Fixed threshold (140) with binary inverse |
+| Noise removal | Median blur |
 
 ## Tech Stack
 
