@@ -4,15 +4,15 @@ from ocr_engine import recognize_text
 with gr.Blocks(title="Noise2Text") as iface:
     gr.Markdown(
         """
-        # Noise2Text:- Robust Distorted Text Recognizer
-        Upload a distorted or noisy image containing text.
-        The system applies a multi-layer preprocessing pipeline and performs OCR using **EasyOCR** — entirely offline.
+        # Noise2Text — Distorted Text Recognizer
+        Upload an image with noisy or distorted text and hit the button.
+        Preprocessing runs first, then EasyOCR picks up the text — all offline.
         """
     )
 
     with gr.Row():
         with gr.Column():
-            input_image = gr.Image(type="pil", label="Input Image")
+            input_image = gr.Image(type="pil", label="Input Image", transforms=["crop"])
             run_btn = gr.Button("Recognize Text", variant="primary")
 
         with gr.Column():
@@ -21,12 +21,6 @@ with gr.Blocks(title="Noise2Text") as iface:
             output_conf = gr.Textbox(label="Confidence Score")
 
     run_btn.click(
-        fn=recognize_text,
-        inputs=input_image,
-        outputs=[output_image, output_text, output_conf],
-    )
-
-    input_image.change(
         fn=recognize_text,
         inputs=input_image,
         outputs=[output_image, output_text, output_conf],
