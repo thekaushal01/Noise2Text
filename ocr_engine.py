@@ -1,10 +1,17 @@
-import cv2
+import warnings
 import easyocr
 from PIL import Image
 
 from preprocessing import preprocess_image
 
-# Load once — EasyOCR model initialisation is expensive
+#this warning shows up even with gpu=False, just noise
+warnings.filterwarnings(
+    "ignore",
+    message=".*pin_memory.*no accelerator.*",
+    category=UserWarning,
+)
+
+#load the model once at startup, not on every call
 reader = easyocr.Reader(['en'], gpu=False)
 
 
@@ -14,10 +21,10 @@ def recognize_text(image: Image.Image):
 
     processed = preprocess_image(image)
 
-    # EasyOCR works best with a 3-channel image even if the content is grayscale
-    processed_rgb = cv2.cvtColor(processed, cv2.COLOR_GRAY2RGB)
-
-    results = reader.readtext(processed_rgb)
+    results = reader.readtext(
+        processed,
+        allowlist='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    )
 
     texts, confidences = [], []
     for (_bbox, text, conf) in results:
