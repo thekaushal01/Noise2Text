@@ -12,7 +12,7 @@ with gr.Blocks(title="Noise2Text") as iface:
 
     with gr.Row():
         with gr.Column():
-            input_image = gr.Image(type="pil", label="Input Image", transforms=["crop"])
+            input_image = gr.Image(type="pil", label="Input Image")
             run_btn = gr.Button("Recognize Text", variant="primary")
 
         with gr.Column():
