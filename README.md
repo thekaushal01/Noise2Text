@@ -104,3 +104,4 @@ deactivate
 - Multi-language support
 - Batch image processing
 - Custom CRNN OCR model
+- Command-Line Interface (CLI)
