@@ -84,7 +84,8 @@ deactivate
 |---|---|
 | Grayscale conversion | OpenCV color space conversion |
 | 3x upscale | `cv2.resize` with cubic interpolation |
-| Binarisation | Fixed threshold (140) with binary inverse |
+| Binarisation | Otsu thresholding with binary inverse |
+| Morphological opening | 2x2 kernel to remove noise |
 | Noise removal | Median blur |
 
 ## Tech Stack
@@ -104,4 +105,3 @@ deactivate
 - Multi-language support
 - Batch image processing
 - Custom CRNN OCR model
-- Command-Line Interface (CLI)
