@@ -16,7 +16,11 @@ def preprocess_image(image: Image.Image) -> np.ndarray:
     img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
 
     #invert — easyocr reads white text on dark background better
-    _, img = cv2.threshold(img, 140, 255, cv2.THRESH_BINARY_INV)
+    _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+    #clean up small noise spots
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+    img = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
 
     #clean up any leftover noise
     img = cv2.medianBlur(img, 3)
